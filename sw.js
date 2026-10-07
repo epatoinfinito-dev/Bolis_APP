@@ -1,7 +1,7 @@
 /* BoliOS Service Worker
    Estrategia: network-first para código (actualizaciones automáticas cuando hay red),
    cache-first para librerías vendor e iconos. Offline total garantizado. */
-const CACHE = "bolios-v2";
+const CACHE = "bolios-v3";
 const ASSETS = [
   "./",
   "./index.html",
