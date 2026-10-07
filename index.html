@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2cadfd">
+<meta name="description" content="BoliOS — Sistema de gestión para tu negocio de bolis: ventas, inventario, gastos y análisis de rentabilidad.">
+<title>BoliOS · Gestión de tu negocio de bolis</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ====== HEADER ====== -->
+<header class="app-header">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <rect x="10" y="3" width="12" height="18" rx="6" fill="#ff5d8f"/>
+      <path d="M10 9a6 6 0 0 1 12 0v2c-1.5 1.5-3-1.5-4.5 0s-3-1.5-4.5 0-3-1.5-3 0V9z" fill="#fff6e0"/>
+      <rect x="14.2" y="21" width="3.6" height="8" rx="1.8" fill="#deb887"/>
+      <circle cx="25" cy="6" r="2.4" fill="#ffd90d"/>
+    </svg>
+    <div class="brand-text">
+      <span class="brand-name" id="brandName">BoliOS</span>
+      <span class="brand-date" id="headerDate"></span>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button id="installBtn" class="btn-install" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
+      Instalar app
+    </button>
+    <button id="settingsBtn" class="btn-icon" aria-label="Ajustes">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ====== SIDE / BOTTOM NAV ====== -->
+  <nav class="app-nav" aria-label="Navegación principal">
+    <button class="nav-btn active" data-view="inicio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+      <span>Inicio</span>
+    </button>
+    <button class="nav-btn" data-view="vender">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1.6"/><circle cx="19" cy="21" r="1.6"/><path d="M2.5 3h2l2.6 12.4a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 2-1.6L21.5 7H6"/></svg>
+      <span>Vender</span>
+    </button>
+    <button class="nav-btn" data-view="productos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+      <span>Productos</span>
+    </button>
+    <button class="nav-btn" data-view="gastos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>
+      <span>Gastos</span>
+    </button>
+    <button class="nav-btn" data-view="analisis">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-4 4"/></svg>
+      <span>Análisis</span>
+    </button>
+  </nav>
+
+  <main class="app-main">
+
+    <!-- ====== VISTA: INICIO ====== -->
+    <section class="view active" id="view-inicio">
+      <div class="hero glass">
+        <div class="hero-copy">
+          <p class="hero-kicker" id="heroGreeting">¡Buen día!</p>
+          <h1 class="hero-title">Tu negocio de bolis,<br><em>bajo control.</em></h1>
+          <p class="hero-sub" id="heroSummary">Registra tu primera venta para ver tus números aquí.</p>
+          <div class="hero-cta">
+            <button class="btn-primary" data-goto="vender">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              Nueva venta
+            </button>
+            <button class="btn-ghost" data-goto="analisis">Ver análisis</button>
+          </div>
+        </div>
+        <div class="hero-3d">
+          <canvas id="hero3d" aria-label="Boli 3D"></canvas>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <article class="stat glass reveal">
+          <span class="stat-label">Ventas de hoy</span>
+          <strong class="stat-value" id="statVentasHoy">$0</strong>
+          <span class="stat-foot" id="statVentasCount">0 ventas</span>
+        </article>
+        <article class="stat glass reveal">
+          <span class="stat-label">Ganancia de hoy</span>
+          <strong class="stat-value good" id="statGananciaHoy">$0</strong>
+          <span class="stat-foot" id="statMeta">Meta diaria: —</span>
+        </article>
+        <article class="stat glass reveal">
+          <span class="stat-label">Ticket promedio</span>
+          <strong class="stat-value" id="statTicket">$0</strong>
+          <span class="stat-foot">por venta</span>
+        </article>
+        <article class="stat glass reveal">
+          <span class="stat-label">Inventario</span>
+          <strong class="stat-value" id="statStock">0</strong>
+          <span class="stat-foot" id="statStockFoot">bolis en stock</span>
+        </article>
+      </div>
+
+      <div class="dash-cols">
+        <article class="panel glass reveal">
+          <div class="panel-head">
+            <h2>Ventas · últimos 7 días</h2>
+          </div>
+          <div class="chart-wrap"><canvas id="weekChart"></canvas></div>
+        </article>
+
+        <article class="panel glass reveal">
+          <div class="panel-head">
+            <h2>Alertas de stock</h2>
+            <button class="btn-mini" data-goto="productos">Inventario</button>
+          </div>
+          <ul class="alert-list" id="lowStockList"></ul>
+        </article>
+
+        <article class="panel glass reveal">
+          <div class="panel-head">
+            <h2>Más vendidos · 7 días</h2>
+          </div>
+          <ul class="top-list" id="topProducts"></ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====== VISTA: VENDER ====== -->
+    <section class="view" id="view-vender">
+      <div class="pos-layout">
+        <div class="pos-left">
+          <div class="pos-tools glass">
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="search" id="posSearch" placeholder="Buscar sabor o producto…" autocomplete="off">
+            </div>
+            <div class="chip-row" id="posCats"></div>
+          </div>
+          <div class="pos-grid" id="posGrid"></div>
+        </div>
+
+        <aside class="pos-cart glass" id="posCart">
+          <div class="cart-head">
+            <h2>Ticket actual</h2>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+          <ul class="cart-items" id="cartItems"></ul>
+          <div class="cart-empty" id="cartEmpty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1.6"/><circle cx="19" cy="21" r="1.6"/><path d="M2.5 3h2l2.6 12.4a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 2-1.6L21.5 7H6"/></svg>
+            <p>Toca un producto para agregarlo al ticket</p>
+          </div>
+          <div class="cart-foot">
+            <div class="pay-row" id="payMethod">
+              <button class="pay-btn active" data-pay="efectivo">Efectivo</button>
+              <button class="pay-btn" data-pay="tarjeta">Tarjeta</button>
+              <button class="pay-btn" data-pay="transferencia">Transfer.</button>
+            </div>
+            <div class="cart-total-row">
+              <span>Total</span>
+              <strong id="cartTotal">$0</strong>
+            </div>
+            <button class="btn-primary big" id="confirmSale" disabled>Cobrar</button>
+          </div>
+        </aside>
+      </div>
+
+      <article class="panel glass reveal" style="margin-top:20px">
+        <div class="panel-head"><h2>Ventas de hoy</h2></div>
+        <ul class="sales-list" id="recentSales"></ul>
+      </article>
+    </section>
+
+    <!-- ====== VISTA: PRODUCTOS ====== -->
+    <section class="view" id="view-productos">
+      <div class="view-head">
+        <div>
+          <h1 class="view-title">Productos e inventario</h1>
+          <p class="view-sub" id="productsSummary">0 productos activos</p>
+        </div>
+        <button class="btn-primary" id="addProductBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          Nuevo producto
+        </button>
+      </div>
+      <div class="products-list" id="productsList"></div>
+    </section>
+
+    <!-- ====== VISTA: GASTOS ====== -->
+    <section class="view" id="view-gastos">
+      <div class="view-head">
+        <div>
+          <h1 class="view-title">Gastos del negocio</h1>
+          <p class="view-sub">Este mes: <strong id="expenseMonthTotal">$0</strong></p>
+        </div>
+        <button class="btn-primary" id="addExpenseBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          Nuevo gasto
+        </button>
+      </div>
+      <div class="chip-row" id="expenseFilter"></div>
+      <ul class="expense-list" id="expensesList"></ul>
+    </section>
+
+    <!-- ====== VISTA: ANÁLISIS ====== -->
+    <section class="view" id="view-analisis">
+      <div class="view-head">
+        <div>
+          <h1 class="view-title">Análisis y rentabilidad</h1>
+          <p class="view-sub">¿Tu negocio deja ganancia? Aquí lo ves claro.</p>
+        </div>
+        <div class="period-chips" id="periodChips">
+          <button class="chip active" data-period="7">7 días</button>
+          <button class="chip" data-period="30">30 días</button>
+          <button class="chip" data-period="month">Este mes</button>
+          <button class="chip" data-period="all">Todo</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <article class="kpi glass reveal"><span>Ingresos</span><strong id="kpiIngresos">$0</strong></article>
+        <article class="kpi glass reveal"><span>Costo de ventas</span><strong id="kpiCostos">$0</strong></article>
+        <article class="kpi glass reveal"><span>Utilidad bruta</span><strong class="good" id="kpiBruta">$0</strong></article>
+        <article class="kpi glass reveal"><span>Gastos</span><strong class="bad" id="kpiGastos">$0</strong></article>
+        <article class="kpi glass reveal"><span>Utilidad neta</span><strong class="good" id="kpiNeta">$0</strong></article>
+        <article class="kpi glass reveal"><span>Margen neto</span><strong id="kpiMargen">0%</strong></article>
+      </div>
+
+      <div class="dash-cols two">
+        <article class="panel glass reveal">
+          <div class="panel-head"><h2>Ingresos vs gastos por día</h2></div>
+          <div class="chart-wrap tall"><canvas id="dailyChart"></canvas></div>
+        </article>
+        <article class="panel glass reveal">
+          <div class="panel-head"><h2>Ventas por producto</h2></div>
+          <div class="chart-wrap tall"><canvas id="productChart"></canvas></div>
+        </article>
+      </div>
+
+      <article class="panel glass reveal">
+        <div class="panel-head">
+          <h2>Ventas por día de la semana · 3D</h2>
+          <span class="hint">Arrastra para girar</span>
+        </div>
+        <div class="chart-3d-wrap"><canvas id="bar3d"></canvas></div>
+      </article>
+
+      <article class="panel glass reveal">
+        <div class="panel-head"><h2>Rentabilidad por producto</h2></div>
+        <div class="table-wrap">
+          <table class="data-table" id="profitTable">
+            <thead>
+              <tr><th>Producto</th><th>Unid.</th><th>Ingresos</th><th>Costo</th><th>Utilidad</th><th>Margen</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="empty-note" id="profitEmpty">Aún no hay ventas en este periodo.</p>
+      </article>
+
+      <article class="panel glass reveal">
+        <div class="panel-head"><h2>Datos y respaldo</h2></div>
+        <div class="backup-row">
+          <button class="btn-ghost" id="exportCsv">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
+            Ventas a CSV
+          </button>
+          <button class="btn-ghost" id="exportJson">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
+            Respaldo completo
+          </button>
+          <label class="btn-ghost" for="importJson">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="m7 13 5-5 5 5"/><path d="M5 3h14"/></svg>
+            Restaurar respaldo
+          </label>
+          <input type="file" id="importJson" accept="application/json" hidden>
+        </div>
+        <p class="empty-note">Tus datos se guardan únicamente en este dispositivo. Descarga un respaldo regularmente.</p>
+      </article>
+    </section>
+
+  </main>
+</div>
+
+<!-- ====== MODAL: PRODUCTO ====== -->
+<dialog class="modal" id="productModal">
+  <form id="productForm" method="dialog" class="modal-card glass-strong">
+    <h2 id="productModalTitle">Nuevo producto</h2>
+    <input type="hidden" id="pId">
+    <label>Nombre
+      <input type="text" id="pName" required maxlength="40" placeholder="Boli de fresa con crema">
+    </label>
+    <label>Tipo
+      <select id="pType">
+        <option value="agua">De agua</option>
+        <option value="leche">De leche</option>
+        <option value="especial">Especial / relleno</option>
+      </select>
+    </label>
+    <div class="field-row">
+      <label>Costo unitario
+        <input type="number" id="pCost" required min="0" step="0.5" inputmode="decimal" placeholder="6">
+      </label>
+      <label>Precio de venta
+        <input type="number" id="pPrice" required min="0" step="0.5" inputmode="decimal" placeholder="12">
+      </label>
+    </div>
+    <div class="field-row">
+      <label>Stock actual
+        <input type="number" id="pStock" required min="0" step="1" inputmode="numeric" placeholder="24">
+      </label>
+      <label>Alerta de stock bajo
+        <input type="number" id="pMinStock" min="0" step="1" inputmode="numeric" placeholder="5">
+      </label>
+    </div>
+    <label>Color del sabor
+      <div class="color-row" id="pColors"></div>
+    </label>
+    <p class="modal-hint" id="pMarginHint"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn-ghost" data-close>Cancelar</button>
+      <button type="submit" class="btn-primary">Guardar</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- ====== MODAL: GASTO ====== -->
+<dialog class="modal" id="expenseModal">
+  <form id="expenseForm" method="dialog" class="modal-card glass-strong">
+    <h2>Nuevo gasto</h2>
+    <label>Categoría
+      <select id="eCategory">
+        <option value="insumos">Insumos (leche, fruta, azúcar…)</option>
+        <option value="empaque">Empaque (bolsas, palitos…)</option>
+        <option value="servicios">Servicios (luz, agua, renta…)</option>
+        <option value="transporte">Transporte</option>
+        <option value="otros">Otros</option>
+      </select>
+    </label>
+    <label>Monto
+      <input type="number" id="eAmount" required min="0.01" step="0.01" inputmode="decimal" placeholder="150">
+    </label>
+    <label>Nota (opcional)
+      <input type="text" id="eNote" maxlength="60" placeholder="2 kg de fresa">
+    </label>
+    <label>Fecha
+      <input type="date" id="eDate" required>
+    </label>
+    <div class="modal-actions">
+      <button type="button" class="btn-ghost" data-close>Cancelar</button>
+      <button type="submit" class="btn-primary">Guardar gasto</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- ====== MODAL: TICKET / VENTA EXITOSA ====== -->
+<dialog class="modal" id="ticketModal">
+  <div class="modal-card glass-strong ticket">
+    <div class="ticket-check">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <h2>¡Venta registrada!</h2>
+    <ul class="ticket-items" id="ticketItems"></ul>
+    <div class="ticket-total"><span>Total cobrado</span><strong id="ticketTotal">$0</strong></div>
+    <div class="ticket-meta" id="ticketMeta"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn-primary" data-close>Listo</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- ====== MODAL: AJUSTES ====== -->
+<dialog class="modal" id="settingsModal">
+  <form id="settingsForm" method="dialog" class="modal-card glass-strong">
+    <h2>Ajustes del negocio</h2>
+    <label>Nombre del negocio
+      <input type="text" id="sName" maxlength="30" placeholder="Bolis Don Pepe">
+    </label>
+    <div class="field-row">
+      <label>Símbolo de moneda
+        <input type="text" id="sCurrency" maxlength="3" placeholder="$">
+      </label>
+      <label>Meta diaria de ventas
+        <input type="number" id="sGoal" min="0" step="1" inputmode="numeric" placeholder="500">
+      </label>
+    </div>
+    <div class="modal-actions wrap">
+      <button type="button" class="btn-ghost" id="seedDemo">Cargar datos de ejemplo</button>
+      <button type="button" class="btn-danger" id="clearData">Borrar todos los datos</button>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn-ghost" data-close>Cancelar</button>
+      <button type="submit" class="btn-primary">Guardar</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- ====== CONFIRM GENÉRICO ====== -->
+<dialog class="modal" id="confirmModal">
+  <div class="modal-card glass-strong">
+    <h2 id="confirmTitle">¿Seguro?</h2>
+    <p class="modal-hint" id="confirmText"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn-ghost" data-close>Cancelar</button>
+      <button type="button" class="btn-danger" id="confirmYes">Sí, continuar</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast-zone" id="toastZone" aria-live="polite"></div>
+
+<script src="vendor/three.min.js" defer></script>
+<script src="vendor/chart.umd.min.js" defer></script>
+<script src="js/scene3d.js" defer></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>
